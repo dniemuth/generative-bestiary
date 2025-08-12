@@ -164,3 +164,5 @@ export const PROMPT_EXAMPLE = `Example Output:
 }`;
 
 export const STORY_INTRO = `Create a short story for a D&D character.`
+
+export const IMAGINE_PROMPT_ENDING = 'no text. no background, only a solid color. should be facing forward at a slight angle. show full body. realistic, 8k.'

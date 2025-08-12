@@ -5,3 +5,8 @@ export interface IStatFormFields {
   details?: string;
   model?: 'palm' | 'gpt';
 }
+
+export interface IStoryPrompts extends IStatFormFields {
+  name?: string;
+  alignment?: string;
+}

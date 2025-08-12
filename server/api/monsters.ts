@@ -9,9 +9,6 @@ import {
 import { createMessage } from "../../utils/helpers";
 
 export default defineEventHandler(async (event) => {
-  console.log(
-    `https://api.open5e.com/v1/monsters?${event._path?.split("?")[1] ?? ""}`
-  );
   const ragRes = await fetch(
     `https://api.open5e.com/v1/monsters?${event._path?.split("?")[1] ?? ""}`
   );
@@ -47,7 +44,7 @@ export default defineEventHandler(async (event) => {
   const basePath = useGPT
     ? "https://api.openai.com/v1/chat/completions"
     // : "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText";
-    :"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+    :"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
   const headers = {
     "Content-Type": "application/json",
     ...(useGPT
@@ -56,7 +53,6 @@ export default defineEventHandler(async (event) => {
   };
   const userPrompts = createMessage(params);
   const messageContent = `${PROMPT_INTRO} ${userPrompts} ${PROMPT_ENDING}${ragExample}`;
-  console.log(messageContent);
   const body = useGPT
     ? { ...PAYLOAD, messages: [{ role: "user", content: messageContent }] }
     : {
@@ -65,8 +61,6 @@ export default defineEventHandler(async (event) => {
             text: messageContent,
           }
         },
-        // temperature: 1.0,
-        // candidate_count: 1,
       };
   try {
     const res = await fetch(basePath, {
